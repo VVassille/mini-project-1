@@ -1,5 +1,6 @@
 import express from "express";
 import "dotenv/config";
+import connectDB from "./config/db.js";
 import authRouter from "./routes/auth.js";
 import postRouter from "./routes/posts.js";
 
@@ -13,6 +14,16 @@ app.use("/auth", authRouter);
 // 1. /post/ 2 /post/
 app.use("/posts", postRouter);
 
-app.listen(PORT, () => {
-  console.log("Serverul lucreaza");
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(`Serverul lucrează pe portul ${PORT}`);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+startServer();
