@@ -18,4 +18,8 @@ const connectDB = async () => {
   }
 };
 
+//acces si conectare la MongoDB
+
+export const getDB = () => client.db();
+
 export default connectDB;
